@@ -5,6 +5,7 @@
  */
 package sumthread;
 import java.lang.Thread;
+import java.util.Scanner;
 /**
  *
  * @author Luca
@@ -17,12 +18,27 @@ public class SumThread {
     public static void main(String[] args) throws InterruptedException{
         // TODO code application logic here
         
-        ThreadS.nthread=5;
+        ThreadS.nthread=5; //Total number of thread that will perform the sum
         int s=0;
-        int array[] = new int[1000];
-        for (int i = 0; i < 1000; i++) {
-            array[i]=i;
+        
+        Scanner scanner = new Scanner(System.in);
+        int first;
+        int second;
+        do {
+          System.out.print("Insert the first number of the summatory: ");
+          first = scanner.nextInt();
+        } while (first <= 0);
+        
+        do {
+          System.out.print("Insert the last number of the summatory: ");
+          second = scanner.nextInt();
+        } while (second <= 0);
+
+        int array[] = new int[second-first+1];
+        for (int i = 0; i < second-first+1; i++) {
+            array[i]=i+first;
         }
+        
         ThreadS[] tss=new ThreadS[ThreadS.nthread]; //create an array of threads. It will be used to use join() since it cannot be used in the for (it would wait every time...)
         for (int i = 0; i < ThreadS.nthread; i++) {
             ThreadS ts=new ThreadS(i,array);//create a new thread
